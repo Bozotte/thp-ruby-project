@@ -24,7 +24,7 @@ login demande le mot de passe et le compare avec le mot de passe original tant q
 
 perform lance signup et login, sachant que welcome_screen est dans login.
 
-##03_stairway.rb
+## 03_stairway.rb
 
 Voir les commentaires du code.
 
