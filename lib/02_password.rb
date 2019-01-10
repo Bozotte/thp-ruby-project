@@ -5,16 +5,16 @@ def signup
 end
 
 def login
-    puts "Saisi ton mot de passe ?"
+    puts "Saisis ton mot de passe ?"
     print "> "
-    givenPassword = gets.chomp.to_s
+    $givenPassword = gets.chomp.to_s
 
-    while givenPassword != $password
+    while $givenPassword != $password
         puts "Ce n'est pas le bon mot de passe."
 
-        puts "Saisi ton mot de passe ?"
+        puts "Ressaisis ton mot de passe ?"
         print "> "
-        givenPassword = gets.chomp.to_s
+        $givenPassword = gets.chomp.to_s
     end
     
     welcome_screen

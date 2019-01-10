@@ -1,19 +1,19 @@
-def gameInit #Initialisation des paramètres du jeu
-    $nb_floors = 10
-    $actual_floor = 0
-    $nb_laps = 0
+def gameInit # Initialisation des paramètres d'une partie
+    $nb_floors = 10 # Variable qui contient l'étage à atteindre pour terminer une partie
+    $actual_floor = 0 # Variable qui contient l'étage actuel et qui démarre à 0
+    $nb_laps = 0 # Variable qui va stocker le nombre de tours réalisés dans une partie pour atteindre l'étage 10
 end
 
-def initArray #méthode qui initialise l'array qui va contenir le nombre de tours de chaque jeu
+def initArray # Fonction qui initialise l'array contenant le nombre de tours réalisé pour finir chaque partie
     $array_laps= []
 end
 
-def gameStart #Lancement du dé et envoi dans les différents cas possibles
-    $dice_result = rand(1..6).to_i
+def gameStart # Lancement du dé et envoi dans les différents cas possibles
+    $dice_result = rand(1..6).to_i # Variable qui choisit un nombre au hasard entre 1 et 6
     gameCase
 end
 
-def gameCase #les différents cas possibles selon les résultats du dé
+def gameCase # Les différents cas possibles selon le résultat du dé
     case $dice_result
     when 1
         goDown
@@ -24,49 +24,52 @@ def gameCase #les différents cas possibles selon les résultats du dé
     end
 end
 
-def goDown #méthode qui diminue l'étage de 1
+def goDown # Méthode qui diminue l'étage actuel de 1
     $actual_floor -= 1 
 end
 
-def goUp #méthode qui augmente l'étage de 2
+def goUp # Méthode qui augmente l'étage actuel de 2
     $actual_floor += 1
 end
 
-def stay #rien ne se passe, utilisée lorsque nous faisions le fonctionnement manuel
+def stay # Rien ne se passe pour les résultats 2, 3 et 4. (Fonction utilisée lorsque nous faisions le fonctionnement manuel)
 end
 
-def endGame #méthode qui sauvegarde le nombre de tours du jeu dans un tableau à la fin du jeu
-    $array_laps.push($nb_laps)
+def endGame # Fonction qui sauvegarde le nombre de tours pour finir une partie dans un array
+    $array_laps << $nb_laps
 end
 
-def average_laps #méthode qui calcule le nombre de tours moyen pour les différentes parties
-    sum = 0
-    $array_laps.each do |i|
-        sum = sum + i 
-    end
-    average = sum / $array_laps.count
+def average_laps # Fonction qui permet de trouver le nombre de tours moyen pour un certain nombre de partie jouées
+
+    # Variable qui stocke le résultat de la somme des tours de chaque partie, divisé par le nombre total de parties jouées
+    average = $array_laps.reduce(:+)/$array_laps.count
     return average.to_s
 end
 
-def nb_games
+def nb_games # Fonction qui récupère un nombre de partie à lancer fournis par l'utilisateur
     puts "Bonjour, veuillez entrer un chiffre supérieur ou égal à 100 :)"
     print"> "
-    given_nb_games = gets.chomp.to_i
-    return given_nb_games
+    $given_nb_games = gets.chomp.to_i
+    return $given_nb_games
 end
 
 
-def average_finish_time #méthode qui lance la requête concernant les 100 parties
-    initArray #initialisation du tableau contenant le nombre de tours
-    nb_games.times do #demande le nombre de lancers puis lance l'exécution x fois selon le nombre donné, pour automatiser totalement, changer le nb_games en 100 ou nombre voulu
-        gameInit #intialisation d'un nouveau jeu
-        while $actual_floor < $nb_floors #tant que l'étage 10 n'est pas atteint
-            gameStart #je démarre mon jeu
-            $nb_laps += 1 #je compte mes tours
+def average_finish_time # Fonction principal qui éxécute un ensemble d'instruction pour trouver le nombre de tour moyen selon un nombre de partie donnée
+
+    initArray # Initialisation de l'array contenant le nombre de tours total de chaque partie
+    nb_games.times do # Méthode exécutée sur la fonction nb_games qui retourne un entier. (Pour automatiser la fonction globale, remplacez par un chiffre. exemple 100)
+
+        gameInit # Intialisation des paramètres d'une nouvelle partie
+        while $actual_floor < $nb_floors # Boucle while qui va s'exécuter tant que l'étage 10 n'est pas atteint
+            gameStart # Je démarre ma partie avec le dé
+            $nb_laps += 1 # J'incrémente mes tours. Le compteur s'arrêtera une fois que l'étage actuel sera égale à 10
         end
-        endGame #fin du jeu et entrée de la valeur
+        endGame # Fin du jeu. (Voir fonction endGame plus haut)
     end
-    puts "Le nombre de tours moyens pour parties est de : " + average_laps #je calcule ma moyenne et l'affiche
+
+    # Je calcule ma moyenne et je l'affiche
+    puts "Le nombre de tours moyen réalisé pour atteindre l'étage #{$nb_floors} en #{$given_nb_games} parties est de #{average_laps} tours." 
+
 end
 
 average_finish_time
