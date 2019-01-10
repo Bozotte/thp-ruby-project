@@ -11,7 +11,7 @@ def gameInit
     print "> "
 
     $dice_result = gets.chomp.to_i
-    puts $dice_result
+    gameCase
 end
 
 def gameCase
@@ -31,6 +31,7 @@ def goDown
     $actual_floor -= 1 
     puts "Tu as fait #{$dice_result}, tu descends d'une marche ! Dommage !"
     puts "Tu es maintenant à la marche #{$actual_floor}"
+    gameInit
 end
 
 def goUp
@@ -44,14 +45,16 @@ def stay
     puts "Tu es maintenant à la marche #{$actual_floor}"
 end
 
+def endGame
+    puts "Bravo ! Tu as gagné le jeu ! "
+end
+
 def running
     gameStart
-    gameInit
-    i = 0 
-    while i >= $actual_floor
-        gameCase
-        i+=1
+    while $actual_floor != $nb_floors
+        gameInit
     end
+    endGame
 end
 
 running
