@@ -1,4 +1,6 @@
-# Projet Ruby du 10/01/2019 de NHEK Antonin @Antonin et DE GREGORIO Raphaël @Raph
+# Projet Ruby du 10/01/2019
+
+### Réalisé par NHEK Antonin @Antonin et DE GREGORIO Raphaël @Raph
 
 ## 00_hello.rb
 
