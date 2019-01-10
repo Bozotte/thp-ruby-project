@@ -8,9 +8,10 @@ def gameStart
 end
 
 def gameInit
-    puts "Entre un chiffre ! :)"
+    puts "Appuie sur ENTREE pour lancer le dé :)"
     print "> "
-    $dice_result = gets.chomp.to_i
+    gets.chomp
+    $dice_result = rand(1..6).to_i
     puts ""
     gameCase
 end
@@ -55,7 +56,7 @@ end
 
 def running
     gameStart
-    while $actual_floor <= $nb_floors
+    while $actual_floor < $nb_floors
         gameInit
     end
     endGame
