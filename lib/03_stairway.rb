@@ -2,12 +2,8 @@ def gameStart
     $nb_floors = 10
     $actual_floor = 0
     $nb_laps = 0
-    puts "Bonjour, bienvenue dans le jeu des escaliers ! :)"
-    puts "Tu es actuellement à l'étage #{$actual_floor}, bonne chance et bonne partie !"
-    puts ""
     puts "Appuie sur ENTREE pour lancer le jeu :)"
     print "> "
-    gets.chomp
 end
 
 def gameInit
@@ -31,34 +27,21 @@ end
 
 def goDown
     $actual_floor -= 1 
-    puts "Tu as fait #{$dice_result}, tu descends d'une marche ! Dommage !"
-    puts "Tu es maintenant à la marche #{$actual_floor}"
-    puts""
 end
 
 def goUp
     $actual_floor += 1
-    puts "Tu as fait #{$dice_result}, tu avances d'une marche !"
-    puts "Tu es maintenant à la marche #{$actual_floor}"
-    puts ""
 end
 
 def stay
-    puts "Tu as fait #{$dice_result}, tu ne bouges pas d'un pouce ! Dommage !"
-    puts "Tu es maintenant à la marche #{$actual_floor}"
-    puts ""
 end
 
 def endGame
-    puts "Le nombre de tours est de : #{$nb_laps}"
-    puts "Bravo ! Tu as gagné le jeu ! "
     average_finish_time
 end
 
 def nbGames
-    puts "Combien de partie voulez-vous simuler ?"
-    print "> "
-    nb_games = gets.chomp.to_i
+    nb_games = 100
     return nb_games
 
 end
@@ -94,4 +77,5 @@ def running
 end
 
 running
-
+puts $array_laps
+average_laps
