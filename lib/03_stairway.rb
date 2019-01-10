@@ -3,14 +3,15 @@ def gameStart
     $actual_floor = 0
     puts "Bonjour, bienvenue dans le jeu des escaliers ! :)"
     puts "Tu es actuellement à l'étage #{$actual_floor}, bonne chance et bonne partie !"
+    puts ""
 
 end
 
 def gameInit
     puts "Entre un chiffre ! :)"
     print "> "
-
     $dice_result = gets.chomp.to_i
+    puts ""
     gameCase
 end
 
@@ -23,7 +24,8 @@ def gameCase
     when 5,6
         goUp
     else 
-        puts "try again"
+        puts "Désolé, ce nombre n'est pas valide."
+        puts ""
     end
 end
 
@@ -31,18 +33,20 @@ def goDown
     $actual_floor -= 1 
     puts "Tu as fait #{$dice_result}, tu descends d'une marche ! Dommage !"
     puts "Tu es maintenant à la marche #{$actual_floor}"
-    gameInit
+    puts""
 end
 
 def goUp
     $actual_floor += 1
     puts "Tu as fait #{$dice_result}, tu avances d'une marche !"
     puts "Tu es maintenant à la marche #{$actual_floor}"
+    puts ""
 end
 
 def stay
     puts "Tu as fait #{$dice_result}, tu ne bouges pas d'un pouce ! Dommage !"
     puts "Tu es maintenant à la marche #{$actual_floor}"
+    puts ""
 end
 
 def endGame
@@ -51,7 +55,7 @@ end
 
 def running
     gameStart
-    while $actual_floor != $nb_floors
+    while $actual_floor <= $nb_floors
         gameInit
     end
     endGame
