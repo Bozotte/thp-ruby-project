@@ -1,17 +1,19 @@
-def gameStart
+def gameInit #Initialisation des paramètres du jeu
     $nb_floors = 10
     $actual_floor = 0
     $nb_laps = 0
-    puts "Appuie sur ENTREE pour lancer le jeu :)"
-    print "> "
 end
 
-def gameInit
+def initArray #méthode qui initialise l'array qui va contenir le nombre de tours de chaque jeu
+    $array_laps= []
+end
+
+def gameStart #Lancement du dé et envoi dans les différents cas possibles
     $dice_result = rand(1..6).to_i
     gameCase
 end
 
-def gameCase
+def gameCase #les différents cas possibles selon les résultats du dé
     case $dice_result
     when 1
         goDown
@@ -19,63 +21,52 @@ def gameCase
         stay
     when 5,6
         goUp
-    else 
-        puts "Désolé, ce nombre n'est pas valide."
-        puts ""
     end
 end
 
-def goDown
+def goDown #méthode qui diminue l'étage de 1
     $actual_floor -= 1 
 end
 
-def goUp
+def goUp #méthode qui augmente l'étage de 2
     $actual_floor += 1
 end
 
-def stay
+def stay #rien ne se passe, utilisée lorsque nous faisions le fonctionnement manuel
 end
 
-def endGame
-    average_finish_time
-end
-
-def nbGames
-    nb_games = 100
-    return nb_games
-
-end
-
-def average_finish_time
+def endGame #méthode qui sauvegarde le nombre de tours du jeu dans un tableau à la fin du jeu
     $array_laps.push($nb_laps)
 end
 
-def initArray
-    $array_laps= []
-end
-
-def average_laps
+def average_laps #méthode qui calcule le nombre de tours moyen pour les différentes parties
     sum = 0
     $array_laps.each do |i|
         sum = sum + i 
     end
     average = sum / $array_laps.count
-    puts average.to_f
-    return average
+    return average.to_s
 end
 
-def running
-    initArray
-    nbGames.times do 
-        gameStart
-        while $actual_floor < $nb_floors
-            gameInit
-            $nb_laps += 1
+def nb_games
+    puts "Bonjour, veuillez entrer un chiffre supérieur ou égal à 100 :)"
+    print"> "
+    given_nb_games = gets.chomp.to_i
+    return given_nb_games
+end
+
+
+def average_finish_time #méthode qui lance la requête concernant les 100 parties
+    initArray #initialisation du tableau contenant le nombre de tours
+    nb_games.times do #demande le nombre de lancers puis lance l'exécution x fois selon le nombre donné, pour automatiser totalement, changer le nb_games en 100 ou nombre voulu
+        gameInit #intialisation d'un nouveau jeu
+        while $actual_floor < $nb_floors #tant que l'étage 10 n'est pas atteint
+            gameStart #je démarre mon jeu
+            $nb_laps += 1 #je compte mes tours
         end
-        endGame
+        endGame #fin du jeu et entrée de la valeur
     end
+    puts "Le nombre de tours moyens pour parties est de : " + average_laps #je calcule ma moyenne et l'affiche
 end
 
-running
-puts $array_laps
-average_laps
+average_finish_time
