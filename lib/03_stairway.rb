@@ -1,16 +1,17 @@
 def gameStart
     $nb_floors = 10
     $actual_floor = 0
+    $nb_laps = 0
+    $array_laps =[]
     puts "Bonjour, bienvenue dans le jeu des escaliers ! :)"
     puts "Tu es actuellement à l'étage #{$actual_floor}, bonne chance et bonne partie !"
     puts ""
-
-end
-
-def gameInit
     puts "Appuie sur ENTREE pour lancer le dé :)"
     print "> "
     gets.chomp
+end
+
+def gameInit
     $dice_result = rand(1..6).to_i
     puts ""
     gameCase
@@ -51,13 +52,21 @@ def stay
 end
 
 def endGame
+    puts "Le nombre de tours est de : #{$nb_laps}"
     puts "Bravo ! Tu as gagné le jeu ! "
+    average_finish_time
+    puts $array_laps[0]
+end
+
+def average_finish_time
+    $array_laps << $nb_laps
 end
 
 def running
     gameStart
     while $actual_floor < $nb_floors
         gameInit
+        $nb_laps += 1
     end
     endGame
 end
