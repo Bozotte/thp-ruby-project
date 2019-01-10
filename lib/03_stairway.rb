@@ -67,8 +67,22 @@ def average_finish_time
     $array_laps.push($nb_laps)
 end
 
+def initArray
+    $array_laps= []
+end
+
+def average_laps
+    sum = 0
+    $array_laps.each do |i|
+        sum = sum + i 
+    end
+    average = sum / $array_laps.count
+    puts average.to_f
+    return average
+end
+
 def running
-    $array_laps =[]
+    initArray
     nbGames.times do 
         gameStart
         while $actual_floor < $nb_floors
@@ -81,4 +95,3 @@ end
 
 running
 
-puts $array_laps
